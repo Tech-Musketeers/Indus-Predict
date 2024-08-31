@@ -10,7 +10,9 @@
     <link rel="stylesheet" href="style.css"> -->
     <link href='https://unpkg.com/boxicons@2.1.1/css/boxicons.min.css' rel='stylesheet'>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/feed_data.css') }}">
     <title>Hackera</title>
+
 
 
     <style>
@@ -128,10 +130,7 @@ body {
         </header>
         <div class="menu-bar">
             <div class="menu">
-                <li class="search-box">
-                    <i class='bx bx-search icon'></i>
-                    <input type="text" placeholder="Search...">
-                </li>
+                
                 <ul class="menu-links">
                     <li class="nav-link">
                         <a href="/">
@@ -161,18 +160,7 @@ body {
                     </li>
                 </ul>
             </div>
-            <div class="bottom-content">
-                <li class="mode">
-                    <div class="sun-moon">
-                        <i class='bx bx-moon icon moon'></i>
-                        <i class='bx bx-sun icon sun'></i>
-                    </div>
-                    <span class="mode-text text">Dark mode</span>
-                    <div class="toggle-switch">
-                        <span class="switch"></span>
-                    </div>
-                </li>
-            </div>
+            
         </div>
     </nav>
 
@@ -186,28 +174,83 @@ body {
         </div>
     </section>
 
-    <!-- <div class="container mt-4">
-        <h1>Feed Data</h1>
-        <form action="{{ url_for('feed_data') }}" method="post">
-            <div class="mb-3">
-                <label for="sensor_1" class="form-label">Sensor - 1</label>
-                <input type="number" class="form-control" id="sensor_1" name="sensor_1" step="any" required>
+    <div class="container">
+        <h1>Welcome To Equipment Maintenance Prediction Project</h1>
+        <ul>
+          <li>sensor_1</li>
+          <li>sensor_2</li>
+          <li>sensor_3</li>
+          <li>opeartional_hours</li>
+          
+        </ul>
+        <p>Please following form to predict Equipments Mintainace</p>
+        <div class="row">
+          <form action="/prediction">
+          <div class="col-lg-6 img-thumbnail p-4">
+            <div class="row">
+              <div class="col-3">
+                sensor_1
+              </div>
+              <div class="col-9">
+                <select class="form-control" name="sensor_1" required>
+                  <option value="">sensor_1</option>
+                  {% for sensor_1 in sensors1 %}
+                    <option value="{{ sensor_1 }}">{{ sensor_1 }}</option>
+                  {% endfor %}
+                </select>
+              </div>
             </div>
-            <div class="mb-3">
-                <label for="sensor_2" class="form-label">Sensor - 2</label>
-                <input type="number" class="form-control" id="sensor_2" name="sensor_2" step="any" required>
+            <div class="row mt-2">
+              <div class="col-3">
+                sensor_2
+              </div>
+              <div class="col-9">
+                <select class="form-control" name="sensor_2" required>
+                  <option value="">sensor_2</option>
+                  {% for sensor_2 in sensors2 %}
+                    <option value="{{ sensor_2 }}">{{ sensor_2 }}</option>
+                  {% endfor %}
+                </select>
+              </div>
             </div>
-            <div class="mb-3">
-                <label for="sensor_3" class="form-label">Sensor - 3</label>
-                <input type="number" class="form-control" id="sensor_3" name="sensor_3" step="any" required>
+            <div class="row mt-2">
+              <div class="col-3">
+                sensor_3
+              </div>
+              <div class="col-9">
+                <select class="form-control" name="sensor_3" required>
+                  <option value="">sensor_3</option>
+                  {% for sensor_3 in sensors3 %}
+                  <option value="{{ sensor_3 }}">{{ sensor_3 }}</option>
+                  {% endfor %}
+                </select>
+              </div>
             </div>
-            <div class="mb-3">
-                <label for="operational_hours" class="form-label">Operation Hours</label>
-                <input type="number" class="form-control" id="operational_hours" name="operational_hours" step="any" required>
+            <div class="row mt-2">
+              <div class="col-3">
+                opeartional_hours
+              </div>
+              <div class="col-9">
+                <select class="form-control" name="opeartional_hours" required>
+                  <option value="">opeartional_hours</option>
+                  {% for opeartional_hours in ophs %}
+                  <option value="{{ opeartional_hours }}">{{ opeartional_hours }}</option>
+                  {% endfor %}
+                </select>
+              </div>
             </div>
-            <button type="submit" class="btn btn-primary">Submit</button>
+           
+            
+          </div>
+          <button type="submit" class="btn-large waves-effect waves-light orange "><a href="prediction.html">
+            Predict 
+          </a>
+
+          </button>
         </form>
-    </div> -->
+        </div>
+        <!-- <br><h3 align="center"<b>{{sensor_1,sensor_2,sensor_3,operational_hours}}</b></h3> -->
+    </div>
 
 
     <div class="row">
