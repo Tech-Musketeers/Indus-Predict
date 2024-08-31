@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reference Data - Machinery Data</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        table, th, td {
+            border: 1px solid black;
+            padding: 10px;
+            text-align: left;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+    </style>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            width: 80%;
+            margin: 0 auto;
+        }
+        .title {
+            text-align: center;
+            margin: 20px 0;
+            font-size: 24px;
+        }
+        h1{
+            margin-left: 100px;
+        }
+        #csv-table {
+            margin-top: 90px;
+            margin-left: 0;
+            overflow-x: auto;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+        th {
+            background-color: #f4f4f4;
+        }
+    </style>
+</head>
+<body>
+
+    <nav class="sidebar close">
+        <header>
+            <div class="image-text">
+                <span class="image">
+                    <img src="mach.png" alt="">
+                </span>
+
+                <div class="text logo-text">
+                    <span class="name">Induspredictor</span>
+                    
+                </div>
+            </div>
+
+            <i class='bx bx-chevron-right toggle'></i>
+        </header>
+
+        <div class="menu-bar">
+            <div class="menu">
+
+                <li class="search-box">
+                    <i class='bx bx-search icon'></i>
+                    <input type="text" placeholder="Search...">
+                </li>
+
+                <ul class="menu-links">
+                    <li class="nav-link">
+                        <a href="#">
+                            <i class='bx bx-home-alt icon' ></i>
+                            <span class="text nav-text">Home</span>
+                        </a>
+                    </li>
+
+                  
+                    <li class="nav-link">
+                        <a href="reference_data.html">
+                            <i class='bx bx-bar-chart-alt-2 icon'></i>
+                            <span class="text nav-text">Reference Data</span>
+                        </a>
+                    </li>
+                    
+                    <li class="nav-link">
+                        <a href="#">
+                            <i class='bx bx-data icon'></i>
+                            <span class="text nav-text">Feed Data</span>
+                        </a>
+                    </li>
+
+                    <li class="nav-link">
+                        <a href="#">
+                            <i class='bx bx-pie-chart-alt icon' ></i>
+                            <span class="text nav-text">Prediction</span>
+                        </a>
+                    </li>
+
+                    <li class="nav-link">
+                        <a href="#">
+                            <i class='bx bx-heart icon' ></i>
+                            <span class="text nav-text">Visualization</span>
+                        </a>
+                    </li>
+
+                    
+
+                </ul>
+            </div>
+
+            <div class="bottom-content">
+                <li class="">
+                    <a href="#">
+                        <i class='bx bx-log-out icon' ></i>
+                        <span class="text nav-text">Logout</span>
+                    </a>
+                </li>
+
+                <li class="mode">
+                    <div class="sun-moon">
+                        <i class='bx bx-moon icon moon'></i>
+                        <i class='bx bx-sun icon sun'></i>
+                    </div>
+                    <span class="mode-text text">Dark mode</span>
+
+                    <div class="toggle-switch">
+                        <span class="switch"></span>
+                    </div>
+                </li>
+                
+            </div>
+        </div>
+
+    </nav>
+    <script src="script.js"></script>
+   <!-- <h1>Reference Data</h1>
+    <div id="csv-table"></div> -->
+
+    <h1>Reference Data</h1>
+    {% if tables %}
+        <div class="table-responsive">
+            {{ tables[0]|safe }}
+        </div>
+    {% else %}
+        <p>No reference data available.</p>
+    {% endif %}
+
+    <!-- Include PapaParse library for CSV parsing -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.0/papaparse.min.js"></script>
+
+    <script>
+        // Automatically load CSV data on page load
+        window.onload = function() {
+            fetchCsv();
+        };
+
+        // Function to fetch and display CSV data
+        function fetchCsv() {
+            fetch('machinery_data.csv')  // Path to your CSV file
+                .then(response => response.text())
+                .then(csvData => {
+                    Papa.parse(csvData, {
+                        header: true, // Use the first row as headers
+                        complete: function(results) {
+                            displayTable(results.data);
+                        }
+                    });
+                });
+        }
+
+        // Function to display CSV data in a table
+        function displayTable(data) {
+            const tableDiv = document.getElementById('csv-table');
+            let tableHTML = "<table><thead><tr>";
+
+            // Create table headers
+            for (let key in data[0]) {
+                tableHTML += <th>${key}</th>;
+            }
+            tableHTML += "</tr></thead><tbody>";
+
+            // Create table rows
+            data.forEach(row => {
+                tableHTML += "<tr>";
+                for (let key in row) {
+                    tableHTML += <td>${row[key]}</td>;
+                }
+                tableHTML += "</tr>";
+            });
+
+            tableHTML += "</tbody></table>";
+            tableDiv.innerHTML = tableHTML;
+        }
+    </script>
+</body>
+</html>
